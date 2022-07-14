@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./index.js" defer type="module"></script>
+    <title>Tortoise Race</title>
+  </head>
+  <body>
+    <template id="tortoise-template">
+      <div class="tortoise">
+        <div class="tortoise-head"></div>
+        <div class="tortoise-body"></div>
+        <div class="tortoise-legs">
+          <div class="tortoise-backlegs">
+            <div class="tortoise-backleg--left leg"></div>
+            <div class="tortoise-backleg--right leg"></div>
+          </div>
+          <div class="tortoise-frontlegs">
+            <div class="tortoise-frontleg--left leg"></div>
+            <div class="tortoise-frontleg--right leg"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div class="game">
+      <div class="header">
+        <h1>Tortoise Race</h1>
+        <button id="add-your-tortoise-btn">Add your tortoise</button>
+      </div>
+      <div class="start-game">
+        <button id="start-game-btn">Start game</button>
+      </div>
+      <div id="backdrop"></div>
+      <div class="modal" id="new-tortoise--container">
+        <button class="close-btn" id="new-tortoise--cancel-btn">X</button>
+        <h3 class="title">Tortoise <span></span></h3>
+        <div>
+          <h3 id="tortoise-name"></h3>
+          <form action="" class="tortoise-form" id="new-tortoise--form">
+            <label for="name">Name</label>
+            <input type="text" id="new-tortoise--name" name="name" />
+            <label for="color">Color</label>
+            <input type="text" id="new-tortoise--color" name="id" />
+            <label for="speed">Speed</label>
+            <input
+              type="number"
+              id="new-tortoise--speed"
+              name="speed"
+              min="1"
+              max="10"
+              placeholder="1-10"
+            />
+            <button type="submit" class="new-tortoise--add-btn active">
+              Add tortoise
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="field" data-field>
+        <div class="field--start-line">
+          <div class="field--start-img-container">
+            <img src="./images/start.png" alt="" />
+          </div>
+        </div>
+
+        <div class="field--finish-line">
+          <div class="field--finish-img-container">
+            <img src="./images/finish.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div id="result" class="modal">
+        <h3>Match results</h3>
+        <ul class="result-items"></ul>
+        <button class="result-close-btn">Close</button>
+        <p class="note">
+          Note: speed for each tortoise will be randomized automatically
+        </p>
+      </div>
+      <div class="tortoise-info">
+        <h3></h3>
+        <div class="row">
+          <div class="col">Color</div>
+          <div class="col" data-tortoise-info-color></div>
+          <div class="col color-display"></div>
+        </div>
+        <div class="row">
+          <div class="col">Speed</div>
+          <div class="col" data-tortoise-info-speed></div>
+        </div>
+        <div class="row">
+          <button class="edit">Change</button>
+        </div>
+        <button class="close-btn close-info">X</button>
+      </div>
+    </div>
+    <div class="change-tortoise-props">
+      <button id="exit" class="close-btn">X</button>
+      <h3 class="title">Tortoise</h3>
+      <form action="" class="tortoise-form">
+        <label for="name">Name</label>
+        <input type="text" id="Tname" name="name" />
+        <label for="color">Color</label>
+        <input type="text" id="Tcolor" name="id" />
+        <label for="speed">Speed</label>
+        <input
+          type="number"
+          id="Tspeed"
+          name="speed"
+          min="1"
+          max="10"
+          placeholder="1-10"
+        />
+        <button type="submit" id="save-changes-btn" class="active">
+          Save changes
+        </button>
+      </form>
+    </div>
+    <div id="runners-container">
+      <h3>We have <span></span> runners in this game!</h3>
+      <ul id="runners"></ul>
+      <p>Good luck to everyone!</p>
+    </div>
+  </body>
+</html>

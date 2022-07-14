@@ -1,0 +1,505 @@
+:root {
+  --main-purple-color: 73, 43, 77; /*rgb(73 43 77); in decimal, then i will call rgb OR rgba*/
+  --reddish-color: 255, 0, 66;
+  --sky-color: #9ed4f7;
+  --brown: #4b371c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--sky-color);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+#backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  display: none;
+  padding: 0.2rem;
+  /*center horisontaly fixed el*/
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.active {
+  background: rgb(var(--main-purple-color));
+  color: white;
+  height: 2rem;
+  border-radius: 0.3rem;
+  border: 2px solid rgb(var(--main-purple-color));
+}
+
+.active:hover {
+  box-shadow: 1px 1px 1px rgba(var(--main-purple-color), 0.7);
+}
+
+.active:active {
+  background: rgba(var(--main-purple-color), 0.7);
+}
+
+.close-btn {
+  color: rgba(var(--reddish-color), 0.5);
+  background: white;
+  border: 1px solid rgb(var(--main-purple-color));
+  border-radius: 5px;
+  float: right;
+  width: 2rem;
+  height: 2rem;
+}
+
+.close-btn:hover {
+  color: rgba(var(--reddish-color), 1);
+  border: 2px solid rgb(var(--main-purple-color));
+  cursor: pointer;
+}
+
+.close-btn:active {
+  color: rgba(var(--reddish-color), 1);
+}
+
+.tortoise-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0.5rem auto;
+  gap: 0.5rem;
+}
+
+.title {
+  text-align: center;
+  color: var(--brown);
+}
+
+.note {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+/******************END shared styling******************/
+
+.game {
+  background-image: url('./images/sky-png-28910.png');
+  background-size: cover;
+}
+
+/*header*/
+.header {
+  background: rgb(var(--main-purple-color));
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.5rem;
+}
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+.header .title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.header button {
+  height: 2rem;
+  font-size: 1rem;
+  border: 2px solid #43f38c;
+  border-radius: 5px;
+  box-shadow: 0 1px 8px #b76cc1;
+  cursor: pointer;
+}
+#add-your-tortoise-btn {
+  background: #9ed4f7;
+  color: rgb(var(--main-purple-color));
+}
+/*END header*/
+
+/*start game*/
+.start-game {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+#start-game-btn {
+  background: #2cbc68;
+  color: white;
+  width: 10rem;
+  height: 3rem;
+  font-size: 1rem;
+  border: 2px solid #43f38c;
+  border-radius: 5px;
+  box-shadow: 0 1px 8px #b76cc1;
+  cursor: pointer;
+}
+#start-game-btn:hover {
+  background: #209350;
+}
+/*END start game*/
+
+/*add new tortoise block*/
+#new-tortoise--container {
+  width: 90%;
+  max-width: 400px;
+  top: 20%;
+}
+.new-tortoise--add-btn {
+  font-weight: 600;
+}
+.new-tortoise--add-btn:hover {
+  cursor: pointer;
+}
+#tortoise-name {
+  color: var(--brown);
+  text-align: center;
+  margin: 0;
+}
+/*END add new tortoise*/
+
+#backdrop.visible {
+  display: block;
+}
+
+#result.visible,
+#new-tortoise--container.visible {
+  display: block;
+  animation: fade-slide-in 0.3s ease-out forwards;
+}
+
+/*field*/
+.field {
+  position: relative;
+  margin-top: 25vh;
+}
+.field--start-line {
+  height: 100%;
+  border-right: 4px dashed white;
+  width: 55px; /*as tortoise width*/
+  position: absolute;
+  z-index: 1;
+  left: 5px;
+}
+.field--start-img-container,
+.field--finish-img-container {
+  width: 70px;
+  height: 60px;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+}
+.field--start-img-container img,
+.field--finish-img-container img {
+  width: 100%;
+  height: 100%;
+}
+.field--finish-line {
+  height: 100%;
+  background: #a52a2a47;
+  width: 50px;
+  position: absolute;
+  z-index: 1;
+  right: 55px;
+}
+.field-line {
+  width: 100%;
+  height: 80px;
+  border: 1px dotted #48800f;
+  background-image: url('./images/line.jpg');
+  position: relative; /*for display-info*/
+}
+/*END field*/
+
+/**tortoise**/
+.tortoise {
+  position: absolute; /*?*/
+  z-index: 5; /*finish line z-index 2*/
+  left: 0;
+  width: 55px; /*body 40px + head 15px*/
+  height: 70px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.tortoise-head {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid black; /*in case user changes tortoise background: none*/
+}
+.tortoise-body {
+  width: 40px;
+  height: 30px;
+  border-radius: 45%;
+  background: var(--brown);
+  z-index: 5; /*z-index works between siblings =>legs, and z-index as tortoise*/
+}
+.tortoise-legs {
+  display: flex;
+  position: absolute;
+  width: 30px; /*smaller than body width*/
+  left: 5px;
+  justify-content: space-between;
+}
+.tortoise-backlegs,
+.tortoise-frontlegs {
+  display: flex;
+  flex-direction: column;
+}
+.leg {
+  width: 10px;
+  height: 20px; /*body height is 30px, so legs to be  more visible height is 20px*/
+  border: 1px solid black; /*in case user changes tortoise background: none*/
+}
+.tortoise-backleg--left,
+.tortoise-frontleg--left {
+  border-top-left-radius: 5px; /*as width 10px/2*/
+  border-top-right-radius: 5px; /*as width 10px/2*/
+}
+.tortoise-backleg--right,
+.tortoise-frontleg--right {
+  border-bottom-left-radius: 5px; /*as width 10px/2*/
+  border-bottom-right-radius: 5px; /*as width 10px/2*/
+}
+.speed {
+  position: absolute;
+  z-index: 7;
+  border: 1px solid black;
+  border-radius: 2px;
+  top: 0;
+}
+.move {
+  animation: move 1s infinite linear;
+}
+/**END tortoise**/
+
+/*display tortoise props*/
+.tortoise-info {
+  max-width: 100%;
+  background: white;
+  margin-left: 56px;
+  position: absolute;
+  padding: 0.5rem;
+  top: 0;
+  z-index: 6;
+  height: fit-content;
+  border: 2px solid black;
+  display: none;
+}
+.tortoise-info h3 {
+  text-align: center;
+}
+.tortoise-info .color-display {
+  width: 0.8rem;
+  height: 0.8rem;
+  align-self: center;
+}
+.tortoise-info .row {
+  display: flex; 
+}
+.tortoise-info .col {
+  padding: 0.4rem;
+}
+.close-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.edit {
+  width: 100%;
+  background: var(--sky-color);
+  border: 1px solid #43f38c;
+  border-radius: 4px;
+}
+.edit:hover {
+  background: rgb(var(--main-purple-color));
+  border-color: gray;
+  color: white;
+  cursor: pointer;
+}
+.tortoise-info.visible {
+  display: block;
+  animation: left-slide-in 0.3s ease-out forwards;
+}
+/*END display tortoise props*/
+
+/*change tortoise*/
+.change-tortoise-props {
+  width: 200px;
+  position: absolute;
+  z-index: 40; /*backdrop is 50*/
+  left: 62px;
+  /*top from JS*/
+  background: white;
+  padding: 0.1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  box-shadow: 2px 2px 2px rgba(var(--main-purple-color), 0.5);
+  display: none;
+}
+.change-tortoise-props.visible {
+  display: block;
+  animation: right-slide-in 0.3s ease-out forwards;
+}
+#save-changes-btn {
+  font-weight: 500;
+}
+/*END change tortoise*/
+
+/*result*/
+#result {
+  /*modal has postiton fixed, so I add top, left here*/
+  width: 90%;
+  max-width: 400px;
+  top: 10%;
+  padding: 2rem;
+}
+#result h3 {
+  text-align: center;
+}
+.result-items li {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+.result-items li p {
+  padding: 0 1rem;
+}
+.winner {
+  color: red;
+}
+.winner::after {
+  content: url('./images/trophy.svg');
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+.result-close-btn {
+  background-color: rgba(var(--reddish-color), 0.5);
+  border: 2px solid rgba(var(--reddish-color), 1);
+  color: white;
+  font-weight: 600;
+  width: 60%;
+  height: 2rem;
+  margin: 1rem 20%;
+  border-radius: 4px;
+}
+.result-close-btn:hover {
+  background-color: rgba(var(--reddish-color), 1);
+  cursor: pointer;
+}
+.won::after {
+  content: url('./images/trophy.svg');
+  position: absolute;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+/*END result*/
+
+/*error*/
+.error {
+  border: 2px solid red;
+}
+.error-msg {
+  margin: 0;
+  font-size: 0.8rem;
+  color: red;
+}
+/*END error*/
+
+#runners-container {
+  text-align: center;
+}
+
+@keyframes move {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes fade-slide-in {
+  from {
+    transform: translateY(-5rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes left-slide-in {
+  from {
+    transform: translateX(-5rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes right-slide-in {
+  from {
+    transform: translateX(15rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes updown-slide-in {
+  from {
+    transform: translateY(15rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
