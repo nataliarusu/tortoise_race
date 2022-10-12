@@ -5,6 +5,7 @@
 This Tortoise Race game was built as part of required projects for application to Founders And Coders.\
 The project is a race between multiple tortoises which move from one side of the screen to the other.
 A user can start a race, see the race results, add new tortoise racer, change their name, color and speed.
+See in action https://nataliarusu.github.io/tortoise_race/
 
 ## The game instructions
 
