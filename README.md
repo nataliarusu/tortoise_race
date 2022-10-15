@@ -90,23 +90,6 @@ all tortoises position, randomize tortoises' speed, and activates the start butt
 
 `saveChanges()` function calls different validate functions to validate inputs value. If the values are valid it calls tortoise methods to set the new values to tortoise object.
 
-## Faced challenges
-
 ---
-
-- I started writing code in one index.js file.
-  The deeper I went into my project, the messier it got.
-  It was so hard to keep track of that so I decided to split it into many js files and use modules.
-- I decided to create each tortoise as an instance of the Tortoise functional constructor, not class-based.
-  Each tortoise should have methods and it was obvious I should create Tortoise.prototype. \
-  The render() method creates tortoise HTML element. But if the user changes some tortoise properties, render() will create a new tortoise HTML element and won't update the existing one. \
-  To resolve it I added a new method rerender(), which changes the style of the existing tortoise HTML element.
-
-- How should I check if all tortoises completed race? \
-  A tortoise can move(), can stop(), and be aware it has finished the race. Should I go through the tortoises array and check each tortoise's completedJourney property each time the move() method is called in setInterval()?
-  Even if I choose this approach, how to check which tortoise finished first? \
-  I decided to create another object, with a result property and add tortoises in the order they completed the race. \
-  This gave me the chance to avoid multiple iterations over the tortoises array and render the trophy straight away above the tortoise that won the game before the game was finished.
-- I also had some difficulties with click events and animations.
 
 In this project, I did not handle the case of many turtles having the same speed.
